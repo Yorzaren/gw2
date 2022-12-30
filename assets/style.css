@@ -39,6 +39,10 @@ hr {
 	width: 100%;
 }
 
+.item-search .mb-3 {
+	margin-top: 1rem;
+}
+
 .char-list {
 	margin-bottom: 0;
 }
