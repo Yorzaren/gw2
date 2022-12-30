@@ -41,3 +41,23 @@ hr {
 .char-list {
 	margin-bottom: 0;
 }
+
+/* Daily Related */
+nav .active {
+	color: red!important;
+}
+
+#toggle-day span.active {
+	text-decoration: underline;
+}
+
+#today-content, #tomorrow-content {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+#dailies-container ul {
+	list-style: none;
+	width: 350px;
+}
