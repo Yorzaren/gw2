@@ -73,6 +73,7 @@ nav .active {
 	border-top: 1px solid red;
 	border-radius: 0 10px 0 0;
 	padding: 15px 15px 0 15px;
+	background: #000;
 }
 #common-ids .btn {
 	background: red;
