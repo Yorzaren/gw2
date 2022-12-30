@@ -12,8 +12,22 @@ $(function() {
 		for ( account in accounts ) {
 			generateAccountDiv(accounts[account]);
 		}
-	} 
+	}
+	// Activate copy buttons
+	new ClipboardJS('.btn');
 });
+
+function ToggleCommonIDs() {
+	if($('#common-ids').hasClass('active')) { // Disable
+		$('#common-ids, #toggle-common').removeClass('active');
+		$('#common-ids').hide();
+		$('#toggle-common').text('Show Common IDs');
+	} else { // Enable
+		$('#common-ids, #toggle-common').addClass('active');
+		$('#common-ids').show();
+		$('#toggle-common').text('Hide Common IDs');
+	}
+}
 
 function statusUpdate(text_message, type) {
 	$('#status-message').text(text_message);

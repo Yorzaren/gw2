@@ -15,6 +15,7 @@ hr {
 	max-width: 85%;
 }
 
+/* Account */
 #account-container {
 	display: flex;
 	flex-wrap: wrap;
@@ -60,4 +61,24 @@ nav .active {
 #dailies-container ul {
 	list-style: none;
 	width: 350px;
+}
+
+/* Common ID */
+#common-ids {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 255px;
+	border-right: 1px solid red;
+	border-top: 1px solid red;
+	border-radius: 0 10px 0 0;
+	padding: 15px 15px 0 15px;
+}
+#common-ids .btn {
+	background: red;
+}
+
+#common-ids .input-group-text {
+	width: 110px;
+	display: block;
 }
