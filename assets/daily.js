@@ -125,7 +125,7 @@ async function getDailyFractials(getTmr) {
 		//console.log(rec_num[i]);
 	}
 	
-	console.log(pve_data)
+	//console.log(pve_data)
 	
 	for (i in pve_data) {
 		$('#' + target_prefix + '-pve').append('<li>' + pve_data[i].name + '</li>');
