@@ -107,10 +107,6 @@ async function getGuildStash(API_KEY, GUILD_ID) {
 			stash_target = 'guild-stash';
 		} else if (stash_id == 1) {
 			stash_target = 'treasure-trove';
-		} else if (stash_id == 2) {
-			stash_target = 'deep-cave';
-		} else {
-			alert('asdaasdds');
 		}
 		$('#'+stash_target+'-gold').html(formatGold(stash_data[stash_id].coins));
 		console.log(stash_data[stash_id].inventory);
