@@ -1,3 +1,11 @@
+function viewGuild(GUILD_ID) {
+	// Hide them when swapping
+	$('.nav-tabs, .tab-content').hide();
+	// Show the selected guild
+	$('#tab-'+GUILD_ID).show();
+	$('#tab-content-'+GUILD_ID).show();
+}
+
 async function getAccountDetails(API_KEY) {
 	var account_info = await fetch('https://api.guildwars2.com/v2/account?access_token='+API_KEY);
 	var account_data = await account_info.json();
@@ -27,15 +35,17 @@ async function addGuild(API_KEY, GUILD_ID) {
 	$('#guild-selector').append('<option value="'+GUILD_ID+'">'+guild_data.name + ' [' + guild_data.tag + ']'+'</option>');
 	
 	// Generate the tabs to hold the data...
+	// Have them hidden by default
+	// Show when the user swaps.
 	$('#guild-holder-container').append(
 		`
-		<ul class="nav nav-tabs" id="tab-${GUILD_ID}"role="tablist">
+		<ul class="nav nav-tabs" id="tab-${GUILD_ID}"role="tablist" style="display:none;">
 			<li class="nav-item" role="presentation"><button class="nav-link active" id="guild-history-tab-${GUILD_ID}" data-bs-toggle="tab" data-bs-target="#guild-history-content-${GUILD_ID}" type="button" role="tab">Guild History</button></li>
 			<li class="nav-item" role="presentation"><button class="nav-link" id="guild-members-tab-${GUILD_ID}" data-bs-toggle="tab" data-bs-target="#guild-members-content-${GUILD_ID}" type="button" role="tab">Guild Members</button></li>
 			<li class="nav-item" role="presentation"><button class="nav-link" id="guild-stash-tab-${GUILD_ID}" data-bs-toggle="tab" data-bs-target="#guild-stash-content-${GUILD_ID}" type="button" role="tab">Guild Bank</button></li>
 			<li class="nav-item" role="presentation"><button class="nav-link" id="guild-stash-log-tab-${GUILD_ID}" data-bs-toggle="tab" data-bs-target="#guild-stash-log-content-${GUILD_ID}" type="button" role="tab">Guild Bank Log</button></li>
 		</ul>
-		<div class="tab-content" id="tab-content">
+		<div class="tab-content" id="tab-content-${GUILD_ID}" style="display:none;">
 			<div class="tab-pane fade show active" id="guild-history-content-${GUILD_ID}" role="tabpanel">History</div>
 			<div class="tab-pane fade" id="guild-members-content-${GUILD_ID}" role="tabpanel">
 				<button class="btn btn-secondary" type="button" onclick="$(this).hide();getGuildMembers($('#api-key').val(), '${GUILD_ID}');">Pull Member Info for ${guild_data.name} [${guild_data.tag}]</button>
@@ -52,7 +62,7 @@ async function addGuild(API_KEY, GUILD_ID) {
 			</div>
 			<div class="tab-pane fade" id="guild-stash-content-${GUILD_ID}" role="tabpanel">${GUILD_ID} content</div>
 			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary" type="button" id="fetch-guild-info" onClick="$(this).hide();getGuildStashHistory($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStashHistory($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-stash-log-${GUILD_ID}">
 					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
 					<tbody></tbody>

@@ -25,9 +25,10 @@
 			<select class="form-select" id="guild-selector" aria-label="Select the Guild">
 			<!--Data will be added when the key is valid -->
 			</select>
-			<button class="btn btn-secondary" type="button" id="fetch-guild-info" onClick="$('#guild-member-list tbody').empty();getGuildMembers($('#api-key').val(), $('#guild-selector').val());">Members</button>
-			<button class="btn btn-secondary" type="button" id="fetch-guild-info" onClick="$('#guild-stash-log tbody').empty();getGuildStashHistory($('#api-key').val(), $('#guild-selector').val());">Bank Log</button>
-			<button class="btn btn-secondary" type="button" id="fetch-guild-info" onClick="$('#guild-stash-log tbody').empty();getGuildStash($('#api-key').val(), $('#guild-selector').val());">Bank</button>
+			<button class="btn btn-secondary" type="button" onClick="viewGuild($('#guild-selector').val());">View Guild</button>
+			<button class="btn btn-secondary" type="button" onClick="$('#guild-member-list tbody').empty();getGuildMembers($('#api-key').val(), $('#guild-selector').val());">Members</button>
+			<button class="btn btn-secondary" type="button" onClick="$('#guild-stash-log tbody').empty();getGuildStashHistory($('#api-key').val(), $('#guild-selector').val());">Bank Log</button>
+			<button class="btn btn-secondary" type="button" onClick="$('#guild-stash-log tbody').empty();getGuildStash($('#api-key').val(), $('#guild-selector').val());">Bank</button>
 		</div>
 		<div id="guild-holder-container"></div>
 
