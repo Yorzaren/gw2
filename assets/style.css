@@ -4,15 +4,14 @@ body {
 	background: #000;
 	color: #d4d5d5;
 }
-
 hr {
 	border-color: red;
 	opacity: 1;
 }
-
 .container {
 	margin-top: 5em;
 	max-width: 85%;
+	margin-bottom: 25px;
 }
 
 /* Account */
@@ -21,11 +20,9 @@ hr {
 	flex-wrap: wrap;
 	justify-content: center;
 }
-
 .currency-icon {
 	max-height: 25px;
 }
-
 .account {
 	width: 375px;
 	border: 1px solid red;
@@ -34,15 +31,12 @@ hr {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
-
 .account table {
 	width: 100%;
 }
-
 .item-search .mb-3 {
 	margin-top: 1rem;
 }
-
 .char-list {
 	margin-bottom: 0;
 }
@@ -51,17 +45,14 @@ hr {
 nav .active {
 	color: red!important;
 }
-
 #toggle-day span.active {
 	text-decoration: underline;
 }
-
 #today-content, #tomorrow-content {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 }
-
 #dailies-container ul {
 	list-style: none;
 	width: 350px;
@@ -82,8 +73,51 @@ nav .active {
 #common-ids .btn {
 	background: red;
 }
-
 #common-ids .input-group-text {
 	width: 110px;
 	display: block;
+}
+
+
+/* Guild Page */
+#guild-holder-container .nav-tabs {
+	margin-top: 15px;
+}
+#guild-holder-container .nav-tabs {
+	border-color: red;
+}
+#guild-holder-container .nav-tabs .nav-link.active {
+	background-color: red;
+	color: #fff;
+	border-color: red;
+}
+#guild-holder-container .nav-tabs .nav-link:hover {
+	border-color: red;
+}
+
+.fetch-button {
+	margin: 15px 0;
+}
+
+.item-count {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-shadow: 1px 1px 2px #000;
+	color: #fff;
+	font-size: 30px;
+	cursor: default;
+}
+.item-container img {
+	width: 64px;
+	height: 64px;
+}
+.item-container {
+	position: relative;
+	text-align: center;
+	color: white;
+	border: 1px solid #fff;
+	width: 64px;
+	height: 64px;
 }
