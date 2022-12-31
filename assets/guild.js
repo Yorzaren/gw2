@@ -136,6 +136,7 @@ async function getGuildStash(API_KEY, GUILD_ID) {
 			$('#guild-stash-content-' + GUILD_ID + ' .deep-cave-container').show();
 		}
 		$('#guild-stash-content-'+GUILD_ID+' .'+stash_target+'-gold').html(formatGold(stash_data[stash_id].coins));
+		$('#guild-stash-content-'+GUILD_ID+' .note-'+stash_target).html(stash_data[stash_id].note);
 		console.log(stash_data[stash_id].inventory);
 		
 		for (item in stash_data[stash_id].inventory) {
@@ -187,6 +188,7 @@ function generationBankHTML(append_to_id, GUILD_ID, bank_name, num_rows) {
 	$(append_to_id).append(`
 	<div class="${id_converted}-container" style="display:none;">
 		<h2>${bank_name}</h2>
+		<p style="cursor:help;" title="Guild Bank Message/Note" class="note-${id_converted}"></p>
 		<table class="inventory-${id_converted}"><tbody></tbody></table>
 		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br><br>
 	</div>
