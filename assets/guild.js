@@ -51,7 +51,13 @@ async function addGuild(API_KEY, GUILD_ID) {
 				</table>
 			</div>
 			<div class="tab-pane fade" id="guild-stash-content-${GUILD_ID}" role="tabpanel">${GUILD_ID} content</div>
-			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">${GUILD_ID} bank log</div>
+			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">
+				<button class="btn btn-secondary" type="button" id="fetch-guild-info" onClick="$(this).hide();getGuildStashHistory($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<table class="table table-dark table-striped table-hover" id="guild-stash-log-${GUILD_ID}">
+					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
 		</div>
 		`
 	);
@@ -69,10 +75,10 @@ async function getGuildStashHistory(API_KEY, GUILD_ID) {
 		if (guild_data[i].type == "stash") {
 			console.log(guild_data[i]);
 			if (guild_data[i].coins != 0) {
-				$('#guild-stash-log').append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+formatGold(guild_data[i].coins)+'</td></tr>');
+				$('#guild-stash-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+formatGold(guild_data[i].coins)+'</td></tr>');
 			} else {
 				//console.log(guild_data[i].user + ' ' + guild_data[i].operation + ' x ' + itemLookup(guild_data[i].item_id));
-				$('#guild-stash-log').append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+guild_data[i].count+' x <span class="item-lookup" id="'+guild_data[i].item_id+'">'+itemLookup(guild_data[i].item_id)+'</td></tr>');
+				$('#guild-stash-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+guild_data[i].count+' x <span class="item-lookup" id="'+guild_data[i].item_id+'">'+itemLookup(guild_data[i].item_id)+'</td></tr>');
 			}
 		}
 	}
