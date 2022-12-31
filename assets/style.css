@@ -4,12 +4,10 @@ body {
 	background: #000;
 	color: #d4d5d5;
 }
-
 hr {
 	border-color: red;
 	opacity: 1;
 }
-
 .container {
 	margin-top: 5em;
 	max-width: 85%;
@@ -21,11 +19,9 @@ hr {
 	flex-wrap: wrap;
 	justify-content: center;
 }
-
 .currency-icon {
 	max-height: 25px;
 }
-
 .account {
 	width: 375px;
 	border: 1px solid red;
@@ -34,15 +30,12 @@ hr {
 	margin-right: 15px;
 	margin-bottom: 15px;
 }
-
 .account table {
 	width: 100%;
 }
-
 .item-search .mb-3 {
 	margin-top: 1rem;
 }
-
 .char-list {
 	margin-bottom: 0;
 }
@@ -51,17 +44,14 @@ hr {
 nav .active {
 	color: red!important;
 }
-
 #toggle-day span.active {
 	text-decoration: underline;
 }
-
 #today-content, #tomorrow-content {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 }
-
 #dailies-container ul {
 	list-style: none;
 	width: 350px;
@@ -82,7 +72,6 @@ nav .active {
 #common-ids .btn {
 	background: red;
 }
-
 #common-ids .input-group-text {
 	width: 110px;
 	display: block;
@@ -93,7 +82,6 @@ nav .active {
 #guild-holder-container .nav-tabs {
 	margin-top: 15px;
 }
-
 .item-count {
 	position: absolute;
 	top: 50%;
@@ -108,8 +96,6 @@ nav .active {
 	width: 64px;
 	height: 64px;
 }
-
-
 .item-container {
 	position: relative;
 	text-align: center;
