@@ -87,3 +87,34 @@ nav .active {
 	width: 110px;
 	display: block;
 }
+
+
+/* Guild Page */
+#guild-holder-container .nav-tabs {
+	margin-top: 15px;
+}
+
+.item-count {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-shadow: 1px 1px 2px #000;
+	color: #fff;
+	font-size: 30px;
+	cursor: default;
+}
+.item-container img {
+	width: 64px;
+	height: 64px;
+}
+
+
+.item-container {
+	position: relative;
+	text-align: center;
+	color: white;
+	border: 1px solid #fff;
+	width: 64px;
+	height: 64px;
+}
