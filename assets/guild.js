@@ -188,7 +188,7 @@ function generationBankHTML(append_to_id, GUILD_ID, bank_name, num_rows) {
 	<div class="${id_converted}-container" style="display:none;">
 		<h2>${bank_name}</h2>
 		<table class="inventory-${id_converted}"><tbody></tbody></table>
-		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br>
+		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br><br>
 	</div>
 	`);
 	
