@@ -37,6 +37,8 @@ async function addGuild(API_KEY, GUILD_ID) {
 	// Generate the tabs to hold the data...
 	// Have them hidden by default
 	// Show when the user swaps.
+	
+	// Guild Log and Stash Log are linked in the same json pull, but are split into different tabs to read easier. So disable the buttons for both when one action gets called.
 	$('#guild-holder-container').append(
 		`
 		<ul class="nav nav-tabs" id="tab-${GUILD_ID}"role="tablist" style="display:none;">
@@ -46,7 +48,13 @@ async function addGuild(API_KEY, GUILD_ID) {
 			<li class="nav-item" role="presentation"><button class="nav-link" id="guild-stash-log-tab-${GUILD_ID}" data-bs-toggle="tab" data-bs-target="#guild-stash-log-content-${GUILD_ID}" type="button" role="tab">Guild Bank Log</button></li>
 		</ul>
 		<div class="tab-content" id="tab-content-${GUILD_ID}" style="display:none;">
-			<div class="tab-pane fade show active" id="guild-history-content-${GUILD_ID}" role="tabpanel">History</div>
+			<div class="tab-pane fade show active" id="guild-history-content-${GUILD_ID}" role="tabpanel">
+				<button class="btn btn-secondary guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-'+${GUILD_ID}).hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Guild Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<table class="table table-dark table-striped table-hover" id="guild-action-log-${GUILD_ID}">
+					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
+					<tbody></tbody>
+				</table>
+			</div>
 			<div class="tab-pane fade" id="guild-members-content-${GUILD_ID}" role="tabpanel">
 				<button class="btn btn-secondary" type="button" onclick="$(this).hide();getGuildMembers($('#api-key').val(), '${GUILD_ID}');">Pull Member Info for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-member-list-${GUILD_ID}">
@@ -64,7 +72,7 @@ async function addGuild(API_KEY, GUILD_ID) {
 				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStash($('#api-key').val(), '${GUILD_ID}');">Pull Bank Inventory for ${guild_data.name} [${guild_data.tag}]</button>
 			</div>
 			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStashHistory($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-${GUILD_ID}').hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-stash-log-${GUILD_ID}">
 					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
 					<tbody></tbody>
@@ -78,14 +86,13 @@ async function addGuild(API_KEY, GUILD_ID) {
 	generationBankHTML('#guild-stash-content-'+GUILD_ID, GUILD_ID, 'Deep Cave', 10);
 }
 
-async function getGuildStashHistory(API_KEY, GUILD_ID) {
+async function getGuildLog(API_KEY, GUILD_ID) {
 	console.log('---GETTING GUILD LOG---');
 
 	var guild_info = await fetch('https://api.guildwars2.com/v2/guild/'+GUILD_ID+'/log?access_token='+API_KEY);
 	var guild_data = await guild_info.json();
 
 	for (i in guild_data) {
-		//console.log(guild_data[i].type);
 		if (guild_data[i].type == "stash") {
 			console.log(guild_data[i]);
 			if (guild_data[i].coins != 0) {
@@ -94,6 +101,26 @@ async function getGuildStashHistory(API_KEY, GUILD_ID) {
 				//console.log(guild_data[i].user + ' ' + guild_data[i].operation + ' x ' + itemLookup(guild_data[i].item_id));
 				$('#guild-stash-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+guild_data[i].count+' x <span class="item-lookup" id="'+guild_data[i].item_id+'">'+itemLookup(guild_data[i].item_id)+'</td></tr>');
 			}
+		} else if (guild_data[i].type != "influence") {
+			switch (guild_data[i].type) {
+				case 'motd':
+					$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>Changed the Message of the Day</td><td>'+guild_data[i].motd+'</td></tr>');
+				break;
+				case 'joined':
+					$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>Join</td><td><b>'+guild_data[i].user+'</b> has joined the guild.</td></tr>');
+				break;
+				case 'invited':
+					$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>...</td><td>New Invite</td><td><b>'+guild_data[i].invited_by +'</b> has invited <b>'+guild_data[i].user+'</b> the guild.</td></tr>');
+				break;
+				case 'kick':
+					if (guild_data[i].kicked_by == guild_data[i].user) {
+						$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>...</td><td>Leave</td><td><b>'+guild_data[i].user +'</b> has left the guild.</td></tr>');
+					} else {
+						$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>...</td><td>Kick</td><td><b>'+guild_data[i].user +'</b> has been kicked from guild by <b>'+guild_data[i].kicked_by+'</b>.</td></tr>');
+					}
+				break;
+			}
+			//$('#guild-action-log-'+GUILD_ID).append('<tr><td>'+new Date(guild_data[i].time).toLocaleString()+'<span style="cursor:help" title="UTC: '+guild_data[i].time+'">*</span></td><td>'+guild_data[i].user+'</td><td>'+guild_data[i].operation+'</td><td>'+formatGold(guild_data[i].coins)+'</td></tr>');
 		}
 	}
 
