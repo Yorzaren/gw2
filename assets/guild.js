@@ -60,7 +60,9 @@ async function addGuild(API_KEY, GUILD_ID) {
 					<tbody></tbody>
 				</table>
 			</div>
-			<div class="tab-pane fade" id="guild-stash-content-${GUILD_ID}" role="tabpanel">${GUILD_ID} content</div>
+			<div class="tab-pane fade" id="guild-stash-content-${GUILD_ID}" role="tabpanel">
+				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStash($('#api-key').val(), '${GUILD_ID}');">Pull Bank Inventory for ${guild_data.name} [${guild_data.tag}]</button>
+			</div>
 			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">
 				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStashHistory($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-stash-log-${GUILD_ID}">
@@ -71,7 +73,9 @@ async function addGuild(API_KEY, GUILD_ID) {
 		</div>
 		`
 	);
-	
+	generationBankHTML('#guild-stash-content-'+GUILD_ID, GUILD_ID, 'Guild Stash', 5);
+	generationBankHTML('#guild-stash-content-'+GUILD_ID, GUILD_ID, 'Treasure Trove', 10);
+	generationBankHTML('#guild-stash-content-'+GUILD_ID, GUILD_ID, 'Deep Cave', 10);
 }
 
 async function getGuildStashHistory(API_KEY, GUILD_ID) {
@@ -118,13 +122,20 @@ async function getGuildStash(API_KEY, GUILD_ID) {
 	console.log(stash_data);
 	
 	for (stash_id in stash_data) {
-		var stash_target = 'deep-cave';
+		var stash_target='NULL';
+		
+		// Set and show if the guild has the tabs unlocked.
 		if (stash_id == 0) {
 			stash_target = 'guild-stash';
+			$('#guild-stash-content-' + GUILD_ID + ' .guild-stash-container').show();
 		} else if (stash_id == 1) {
 			stash_target = 'treasure-trove';
+			$('#guild-stash-content-' + GUILD_ID + ' .treasure-trove-container').show();
+		} else if (stash_id == 2) {
+			stash_target = 'deep-cave';
+			$('#guild-stash-content-' + GUILD_ID + ' .deep-cave-container').show();
 		}
-		$('#'+stash_target+'-gold').html(formatGold(stash_data[stash_id].coins));
+		$('#guild-stash-content-'+GUILD_ID+' .'+stash_target+'-gold').html(formatGold(stash_data[stash_id].coins));
 		console.log(stash_data[stash_id].inventory);
 		
 		for (item in stash_data[stash_id].inventory) {
@@ -133,7 +144,7 @@ async function getGuildStash(API_KEY, GUILD_ID) {
 				var item_info = returnItemAndIcon(item_entry.id);
 				var item_count = item_entry.count;
 				console.log(item_entry);
-				$('#inventory-'+stash_target+' td').eq(item).html('<img title="'+item_info[0]+'" src="'+item_info[1]+'"><span title="'+item_info[0]+'" class="item-count">'+item_count+'</span>');	
+				$('#guild-stash-content-'+GUILD_ID+' .inventory-'+stash_target+' td').eq(item).html('<img title="'+item_info[0]+'" src="'+item_info[1]+'"><span title="'+item_info[0]+'" class="item-count">'+item_count+'</span>');	
 			}
 		}
 	}
@@ -165,4 +176,24 @@ function returnItemAndIcon(ITEM_ID){
 	}).responseText;
 	var parse = JSON.parse(value);
 	return [parse.name, parse.icon];
+}
+
+
+function generationBankHTML(append_to_id, GUILD_ID, bank_name, num_rows) {
+	var html_row = '<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>';
+
+	var id_converted = bank_name.toLowerCase().replaceAll(' ', '-');
+
+	$(append_to_id).append(`
+	<div class="${id_converted}-container" style="display:none;">
+		<h2>${bank_name}</h2>
+		<table class="inventory-${id_converted}"><tbody></tbody></table>
+		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br>
+	</div>
+	`);
+	
+	for (var i = 0; i < num_rows; i++) {
+		$(append_to_id+' .inventory-'+id_converted).append(html_row); // Dont forget the append_to_id or it will attach it to every instance of 
+	}
+	
 }
