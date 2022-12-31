@@ -49,14 +49,14 @@ async function addGuild(API_KEY, GUILD_ID) {
 		</ul>
 		<div class="tab-content" id="tab-content-${GUILD_ID}" style="display:none;">
 			<div class="tab-pane fade show active" id="guild-history-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-'+${GUILD_ID}).hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Guild Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary fetch-button btn-lg guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-${GUILD_ID}').hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Guild Log for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-action-log-${GUILD_ID}">
 					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
 					<tbody></tbody>
 				</table>
 			</div>
 			<div class="tab-pane fade" id="guild-members-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary" type="button" onclick="$(this).hide();getGuildMembers($('#api-key').val(), '${GUILD_ID}');">Pull Member Info for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary fetch-button btn-lg" type="button" onclick="$(this).hide();getGuildMembers($('#api-key').val(), '${GUILD_ID}');">Pull Member Info for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-member-list-${GUILD_ID}">
 					<thead>
 						<tr>
@@ -69,10 +69,10 @@ async function addGuild(API_KEY, GUILD_ID) {
 				</table>
 			</div>
 			<div class="tab-pane fade" id="guild-stash-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary" type="button" onClick="$(this).hide();getGuildStash($('#api-key').val(), '${GUILD_ID}');">Pull Bank Inventory for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary fetch-button btn-lg" type="button" onClick="$(this).hide();getGuildStash($('#api-key').val(), '${GUILD_ID}');">Pull Bank Inventory for ${guild_data.name} [${guild_data.tag}]</button>
 			</div>
 			<div class="tab-pane fade" id="guild-stash-log-content-${GUILD_ID}" role="tabpanel">
-				<button class="btn btn-secondary guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-${GUILD_ID}').hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
+				<button class="btn btn-secondary fetch-button btn-lg guild-log-${GUILD_ID}" type="button" onClick="$('.guild-log-${GUILD_ID}').hide();getGuildLog($('#api-key').val(), '${GUILD_ID}');">Pull Bank Log for ${guild_data.name} [${guild_data.tag}]</button>
 				<table class="table table-dark table-striped table-hover" id="guild-stash-log-${GUILD_ID}">
 					<thead><tr><th scope="col" style="width:20%!important">Timestamp</th><th scope="col" style="width:20%!important">Account</th><th scope="col" style="width:20%!important">Action</th><th scope="col" style="width:40%!important">Log</th></tr></thead>
 					<tbody></tbody>
@@ -213,11 +213,12 @@ function generationBankHTML(append_to_id, GUILD_ID, bank_name, num_rows) {
 	var id_converted = bank_name.toLowerCase().replaceAll(' ', '-');
 
 	$(append_to_id).append(`
+	<br>
 	<div class="${id_converted}-container" style="display:none;">
 		<h2>${bank_name}</h2>
 		<p style="cursor:help;" title="Guild Bank Message/Note" class="note-${id_converted}"></p>
 		<table class="inventory-${id_converted}"><tbody></tbody></table>
-		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br><br>
+		<br><b>Gold: </b><span class="${id_converted}-gold"></span><br>
 	</div>
 	`);
 	

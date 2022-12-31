@@ -19,13 +19,13 @@
 	<section class="container">
 		<div class="input-group mb-3">
 			<input id="api-key" type="text" class="form-control" placeholder="API KEY" aria-label="API KEY" aria-describedby="add-api-key">
-			<button class="btn btn-secondary" type="button" id="add-api-key" onClick="getAccountDetails($('#api-key').val());">Add</button>
+			<button class="btn btn-secondary btn-lg" type="button" id="add-api-key" onClick="getAccountDetails($('#api-key').val());">Add</button>
 		</div>
 		<div id="guild-chooser" class="input-group" style="display:none;">
 			<select class="form-select" id="guild-selector" aria-label="Select the Guild">
 			<!--Data will be added when the key is valid -->
 			</select>
-			<button class="btn btn-secondary" type="button" onClick="viewGuild($('#guild-selector').val());">View Guild</button>
+			<button class="btn btn-secondary btn-lg" type="button" onClick="viewGuild($('#guild-selector').val());">View Guild</button>
 		</div>
 		<div id="guild-holder-container"></div>
 	</section>
