@@ -26,65 +26,8 @@
 			<!--Data will be added when the key is valid -->
 			</select>
 			<button class="btn btn-secondary" type="button" onClick="viewGuild($('#guild-selector').val());">View Guild</button>
-			<button class="btn btn-secondary" type="button" onClick="$('#guild-member-list tbody').empty();getGuildMembers($('#api-key').val(), $('#guild-selector').val());">Members</button>
-			<button class="btn btn-secondary" type="button" onClick="$('#guild-stash-log tbody').empty();getGuildStashHistory($('#api-key').val(), $('#guild-selector').val());">Bank Log</button>
-			<button class="btn btn-secondary" type="button" onClick="$('#guild-stash-log tbody').empty();getGuildStash($('#api-key').val(), $('#guild-selector').val());">Bank</button>
 		</div>
 		<div id="guild-holder-container"></div>
-
-		
-		
-<!-- 		<div id="guild-bank">
-			<div id="guild-stash-container">
-				<h2>Guild Stash</h2>
-				<table id="inventory-guild-stash">
-					<tbody>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-					</tbody>
-				</table>
-				<br><b>Gold: </b><span id="guild-stash-gold"></span><br>
-			</div>
-			<div id="treasure-trove-container">
-				<h2>Treasure Trove</h2>
-				<table id="inventory-treasure-trove">
-					<tbody>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-					</tbody>
-				</table>
-				<br><b>Gold: </b><span id="treasure-trove-gold"></span><br>
-			</div>
-			<div id="deep-cave-container">
-				<h2>Deep Cave</h2>
-				<table id="inventory-deep-cave">
-					<tbody>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-						<tr><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td><td class="item-container"></td></tr>
-					</tbody>
-				</table>
-				<br><b>Gold: </b><span id="deep-cave-gold"></span><br>
-			</div>
-		</div> -->
 	</section>
 </body>
 </html>
