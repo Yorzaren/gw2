@@ -171,6 +171,7 @@ function fractalRecLookup(frac_id) {
 		case 32:
 			return 'Swampland';
 		case 19:
+		case 28:
 			return 'Volcanic';
 		case 10:
 		case 40:
