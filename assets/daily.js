@@ -3,7 +3,7 @@ $(function() {
 	getDailyFractials(false);
 	// Default Hide Dailies
 	$('#dailies-container').hide();
-	
+
 	// Make Tomorrow Active
 	$('#tomorrow-container').addClass('active');
 	$('#tomorrow-label').addClass('active');
@@ -11,7 +11,7 @@ $(function() {
 });
 
 function ToggleDailies() {
-	if($('#toggle-dailies').hasClass('active')) { // Disable
+	if ($('#toggle-dailies').hasClass('active')) { // Disable
 		$('#toggle-dailies').removeClass('active');
 		$('#dailies-container').hide();
 		$('#toggle-dailies').text('Show Dailies');
@@ -63,7 +63,7 @@ async function getDailyFractials(getTmr) {
 				pve_ids = pve_ids.concat(daily_data.pve[i].id);
 			} else {
 				pve_ids = pve_ids.concat(',', daily_data.pve[i].id);
-			}	
+			}
 		}
 	}
 	var pvp_ids = '';
@@ -121,93 +121,153 @@ async function getDailyFractials(getTmr) {
 		//console.log(name_daily_fracs[i]);
 	}
 	for (i in rec_num) {
-		$('#' + target_prefix + '-fracs').append('<li>' + rec_num[i] + ' ('+fractalRecLookup(rec_num[i])+')'+ '</li>');
+		$('#' + target_prefix + '-fracs').append('<li>' + rec_num[i] + ' (' + getFractalName(rec_num[i]) + ')' + '</li>');
 		//console.log(rec_num[i]);
 	}
-	
+
 	//console.log(pve_data)
-	
+
 	for (i in pve_data) {
 		$('#' + target_prefix + '-pve').append('<li>' + pve_data[i].name + '</li>');
 	}
-	
+
 	for (i in pvp_data) {
 		$('#' + target_prefix + '-pvp').append('<li>' + pvp_data[i].name + '</li>');
 	}
-	
+
 	for (i in wvw_data) {
 		$('#' + target_prefix + '-wvw').append('<li>' + wvw_data[i].name + '</li>');
 	}
 }
 
-function fractalRecLookup(frac_id) {
+function getFractalName(frac_id) {
 	frac_id = parseInt(frac_id);
 	switch (frac_id) {
-		case 2:
-		case 36:
-		case 62:
-			return 'Uncategorized';
+		case 0:
+			return "Mistlock Observatory";
 		case 14:
+		case 45:
 		case 65:
-			return 'Aetherblade';
+		case 70:
+		case 96:
+			return "Aetherblade";
+		case 7:
+		case 26:
+		case 61:
+		case 76:
+			return "Aquatic Ruins";
+		case 18:
+		case 42:
+		case 71:
+		case 95:
+			return "Captain Mai Trin Boss";
+		case 13:
+		case 30:
+		case 38:
+		case 63:
+		case 88:
+			return "Chaos";
+		case 6:
+		case 21:
+		case 46:
+		case 68:
+		case 94:
+			return "Cliffside";
+		case 11:
+		case 33:
+		case 67:
+		case 84:
+			return "Deepstone";
+		case 10:
+		case 40:
+		case 69:
+		case 90:
+			return "Molten Boss";
+		case 9:
+		case 17:
+		case 39:
+		case 58:
+		case 83:
+			return "Molten Furnace";
+		case 22:
+		case 47:
+		case 72:
+		case 97:
+			return "Nightmare";
+		case 23:
+		case 48:
+		case 73:
+		case 98:
+			return "Shattered Observatory";
+		case 25:
+		case 50:
+		case 75:
+		case 100:
+			return "Silent Surf";
 		case 12:
 		case 37:
 		case 54:
-			return 'Siren\'s Reef';
-		case 25:
-		case 75:
-			return 'Sunqua Peak';
-		case 8:
-		case 53:
-			return 'Underground Facility';
-		case 61:
-			return 'Aquatic Ruins';
-		case 6:
-		case 69:
-			return 'Cliffside';
-		case 48:
-			return 'Nightmare';
+		case 78:
+			return "Siren's Reef";
+		case 3:
+		case 27:
+		case 51:
+		case 86:
+		case 93:
+			return "Snowblind";
+		case 24:
+		case 49:
+		case 74:
+		case 99:
+			return "Sunqua Peak";
+		case 20:
+		case 35:
+		case 44:
+		case 60:
+		case 80:
+			return "Solid Ocean";
 		case 5:
 		case 32:
-			return 'Swampland';
-		case 19:
-		case 28:
-			return 'Volcanic';
-		case 10:
-		case 40:
-			return 'Molten Boss';
-		case 18:
-		case 42:
-			return 'Captain Mai Trin';
+		case 56:
+		case 77:
+		case 89:
+			return "Swampland";
 		case 15:
 		case 34:
+		case 43:
+		case 55:
 		case 64:
-			return 'Thaumanova Reactor';
-		case 4:
-		case 31:
-		case 66:
-			return 'Urban Battleground';
+		case 82:
+			return "Thaumanova Reactor";
 		case 16:
 		case 41:
 		case 59:
-			return 'Twilight Oasis';
-		case 35:
-		case 60:
-			return 'Solid Ocean';
-		case 24:
-			return 'Shattered Observatory';
-		case 30:
-			return 'Chaos';
-		case 11:
-		case 67:
-			return 'Deepstone';
-		case 39:
-		case 58:
-			return 'Molten Furnace';
-		case 27:
-		case 68:
-			return 'Snowblind';
+		case 87:
+			return "Twilight Oasis";
+		case 2:
+		case 36:
+		case 62:
+		case 79:
+		case 91:
+			return "Uncategorized";
+		case 8:
+		case 29:
+		case 53:
+		case 81:
+			return "Underground Facility";
+		case 4:
+		case 31:
+		case 57:
+		case 66:
+		case 85:
+			return "Urban Battleground";
+		case 1:
+		case 19:
+		case 28:
+		case 52:
+		case 92:
+			return "Volcanic";
 		default:
-			return 'Error... Bad ID';
+			return "Unknown Scale";
 	}
 }
