@@ -81,85 +81,46 @@ function generateAccountDiv(API_KEY) {
 }
 
 function getWallet(API_KEY) {
-	$.getJSON('https://api.guildwars2.com/v2/account/wallet?access_token='+API_KEY, function(data) {
-		//console.log(data);
-		
-		var gold_value, karma_value, ss_value, laurel_value, gem_value, relic_value, prelic_value, dungeon_value, um_value, vm_value, honor_value;
-		
-		// Cycle through and assign the values
-		for (x in data) {			
-			switch(data[x].id) {
-				case 1:
-					gold_value = data[x].value;
-				break;
-				case 2:
-					karma_value = data[x].value;
-				break;
-				case 23:
-					ss_value = data[x].value;
-				break;
-				case 3:
-					laurel_value = data[x].value;
-				break;
-				case 4:
-					gem_value = data[x].value;
-				break;
-				case 7:
-					relic_value = data[x].value;
-				break;
-				case 24:
-					prelic_value = data[x].value;
-				break;
-				case 69:
-					dungeon_value = data[x].value;
-				break;
-				case 32:
-					um_value = data[x].value;
-				break;
-				case 45:
-					vm_value = data[x].value;
-				break;
-				case 15:
-					honor_value = data[x].value;
-				break;
-			}
+	const desiredCurrencyIds = [1, 63, 2, 23, 3, 4, 7, 24, 69, 32, 45, 15, 29];
+	
+	// Fetch currency data for specific IDs
+	$.getJSON(`https://api.guildwars2.com/v2/currencies?ids=${desiredCurrencyIds.join(',')}`, function(currencyData) {
+		const currencyMappings = {};
+		// Create a mapping of currency IDs to names and icons
+		for (const currency of currencyData) {
+			currencyMappings[currency.id] = {
+				name: currency.name,
+				icon: currency.icon
+			};
 		}
 		
-		// Cant compare gold. 
-		var gold_html='', karma_html='', ss_html='', laurel_html='', gem_html='', relic_html='', prelic_html='', dungeon_html='', um_html='', vm_html='', honor_html=''
-		
-		if(gold_value != undefined && gold_value > 0){gold_html=`<tr id="currency-1"><td>Gold</td><td>${formatGold(gold_value)}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/98457F504BA2FAC8457F532C4B30EDC23929ACF9/619316.png"></td></tr>`}
-		if(karma_value != undefined && karma_value > 0){karma_html=`<tr id="currency-2"><td>Karma</td><td>${karma_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/94953FA23D3E0D23559624015DFEA4CFAA07F0E5/155026.png"></td></tr>`}
-		if(ss_value != undefined && ss_value > 0){ss_html=`<tr id="currency-23"><td>Spirit Shards</td><td>${ss_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/0AD608DE7FDEE0B909905C0AF9401321CF65CD94/1010701.png"></td></tr>`}
-		if(laurel_value != undefined && laurel_value > 0){laurel_html=`<tr id="currency-3"><td>Laurel</td><td>${laurel_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/A1BD345AD9192C3A585BE2F6CB0617C5A797A1E2/619317.png"></td></tr>`}
-		if(gem_value != undefined && gem_value > 0){gem_html=`<tr id="currency-4"><td>Gem</td><td>${gem_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/220061640ECA41C0577758030357221B4ECCE62C/502065.png"></td></tr>`}
-		if(relic_value != undefined && relic_value > 0){relic_html=`<tr id="currency-7"><td>Fractal Relic</td><td>${relic_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/0204DAD0D40674035F9F5F5270043C3207EEA7E8/619320.png"></td></tr>`}
-		if(prelic_value != undefined && prelic_value > 0){prelic_html=`<tr id="currency-24"><td>Pristine Fractal Relic</td><td>${prelic_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/77B0F842ED036D71E46B80570D6CFE25CB4C0677/619321.png"></td></tr>`}
-		if(dungeon_value != undefined && dungeon_value > 0){dungeon_html=`<tr id="currency-69"><td>Tales of Dunegon Delving</td><td>${dungeon_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/37CCE672250A3170B71760949C4C9C9B186517B1/619327.png"></td></tr>`}
-		if(um_value != undefined && um_value > 0){um_html=`<tr id="currency-32"><td>Unbound Magic</td><td>${um_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/55CBF5154BC749F0BE7B01F9C75C04F2CD4BC561/1465799.png"></td></tr>`}
-		if(vm_value != undefined && vm_value > 0){vm_html=`<tr id="currency-45"><td>Volatile Magic</td><td>${vm_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/57F51A1F62E3FBB7B5E02CBD7C9717371D1CC8F2/1894697.png"></td></tr>`}
-		if(honor_value != undefined && honor_value > 0){honor_html=`<tr id="currency-15"><td>Badge of Honor</td><td>${honor_value.toLocaleString()}</td><td><img class="currency-icon" src="https://render.guildwars2.com/file/AC3178E7BD066BC597F9D4247848E6033A047EDE/699004.png"></td></tr>`}
-		
-		$('#'+API_KEY+' .wallet-container').append(`
-		<table id="user_currency">
-			<thead><tr><th>Currency</th><th colspan="2">Amount</th></tr></thead>
-			<tbody>
-				${gold_html}
-				${karma_html}
-				${ss_html}
-				${laurel_html}
-				${gem_html}
-				${relic_html}
-				${prelic_html}
-				${dungeon_html}
-				${um_html}
-				${vm_html}
-				${honor_html}
-				</tbody>
-		</table>
-		`);
+		// Fetch wallet data
+		$.getJSON(`https://api.guildwars2.com/v2/account/wallet?access_token=${API_KEY}`, function(data) {
+			const currencyTable = $('<table id="user_currency">');
+			const currencyBody = $('<tbody>');
+			// Loop through desired currency IDs in order
+			for (const currencyId of desiredCurrencyIds) {
+				const currencyInfo = currencyMappings[currencyId];
+				const entry = data.find(entry => entry.id === currencyId);
+				if (currencyInfo && entry && entry.value > 0) {
+					const currencyRow = `
+						<tr id="currency-${currencyId}">
+						  <td>${currencyInfo.name}</td>
+						  <td>${currencyId === 1 ? formatGold(entry.value) : entry.value.toLocaleString()}</td>
+						  <td><img class="currency-icon" src="${currencyInfo.icon}"></td>
+						</tr>
+					`;
+					currencyBody.append(currencyRow);
+				}
+			}
+			currencyTable.append(`<thead><tr><th>Currency</th><th colspan="2">Amount</th></tr></thead>`);
+			currencyTable.append(currencyBody);
+			$(`#${API_KEY} .wallet-container`).append(currencyTable);
+		}).fail(function() {
+			statusUpdate('Wallet Fetch Fail... GW2 API might be down.', 'error');
+		});
 	}).fail(function() {
-		statusUpdate('Wallet Fetch Fail... GW2 API might be down.', 'error');
+		statusUpdate('Currency Data Fetch Fail... GW2 API might be down.', 'error');
 	});
 }
 
