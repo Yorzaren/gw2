@@ -28,6 +28,17 @@ function ToggleCommonIDs() {
 		$('#toggle-common').text('Hide Common IDs');
 	}
 }
+function ToggleAA() {
+	if($('#aa-prices').hasClass('active')) { // Disable
+		$('#aa-prices, #toggle-aa').removeClass('active');
+		$('#aa-prices').hide();
+		$('#toggle-aa').text('Show AA Prices');
+	} else { // Enable
+		$('#aa-prices, #toggle-aa').addClass('active');
+		$('#aa-prices').show();
+		$('#toggle-aa').text('Hide AA Prices');
+	}
+}
 
 function statusUpdate(text_message, type) {
 	$('#status-message').text(text_message);

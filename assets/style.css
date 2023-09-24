@@ -78,6 +78,23 @@ nav .active {
 	display: block;
 }
 
+/* Astral Acclaim */
+#aa-prices {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 275px;
+	border-right: 1px solid red;
+	border-top: 1px solid red;
+	border-radius: 0 10px 0 0;
+	padding: 15px 15px 0 15px;
+	background: #000;
+}
+#aa-prices .input-group-text {
+	width: 80px;
+	display: block;
+}
+
 
 /* Guild Page */
 #guild-holder-container .nav-tabs {

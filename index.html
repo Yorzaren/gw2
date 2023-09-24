@@ -21,6 +21,7 @@
 				<li class="nav-item"><a id="toggle-day" title="Toggle the Day" href="#" onclick="ToggleDay();return false;" class="nav-link"><span id="tomorrow-label">Tomorrow</span> / <span id="today-label">Today</span></a></li>
 			-->
 				<li class="nav-item"><a id="toggle-common" title="Toggle Common IDs" href="#" onclick="ToggleCommonIDs();return false;" class="nav-link">Show Common IDs</a></li>
+				<li class="nav-item"><a id="toggle-aa" title="Toggle AA Prices" href="#" onclick="ToggleAA();return false;" class="nav-link">Show AA Prices</a></li>
 		</ul>
 		</div>
 	</nav>
@@ -75,6 +76,28 @@
 				<span class="input-group-text text-truncate">Encryption</span>
 				<input type="text" class="form-control" value="75919" id="item-75919">
 				<button class="btn" type="button" data-clipboard-target="#item-75919"><i class="bi bi-clipboard2-fill"></i></button>
+			</div>
+		</div>
+		<div id="aa-prices" style="display:none;">
+			<div class="input-group mb-3">
+				<span class="input-group-text text-truncate">1 Gold</span>
+				<input type="text" class="form-control" title="Cost to Buy" value="6 AA">
+				<input type="text" class="form-control" title="Total AA Cost" value="540">
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text text-truncate">MC</span>
+				<input type="text" class="form-control "title="Cost to Buy" value="9 AA">
+				<input type="text" class="form-control" title="Total AA Cost" value="540">
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text text-truncate">Laurels</span>
+				<input type="text" class="form-control" title="Cost to Buy" value="10 AA">
+				<input type="text" class="form-control" title="Total AA Cost" value="1500">
+			</div>
+			<div class="input-group mb-3">
+				<span class="input-group-text text-truncate">Mast. Coffer</span>
+				<input type="text" class="form-control" title="Cost to Buy" value="15 AA">
+				<input type="text" class="form-control" title="Total AA Cost" value="300">
 			</div>
 		</div>
 	</section>
